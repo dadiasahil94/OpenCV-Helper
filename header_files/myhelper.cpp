@@ -49,9 +49,9 @@ namespace helperfunc {
     ImageHeaderStruct GetImageHeader(const cv::Mat input_image) {
         // Function to find matrix headers
         ImageHeaderStruct image_data;
-        image_data.num_rows = input_image.rows;
-        image_data.num_cols = input_image.cols;
-        image_data.num_channels = input_image.channels();
+        image_data.num_rows = (unsigned int)input_image.rows;
+        image_data.num_cols = (unsigned int)input_image.cols;
+        image_data.num_channels = (unsigned int)input_image.channels();
         image_data.data_type = TypeToStr(input_image.type());
 
         return image_data;

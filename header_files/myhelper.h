@@ -50,8 +50,8 @@ namespace helperfunc {
     @see GetImageHeader()
     */
     struct ImageHeaderStruct {
-        int num_rows, num_cols, num_channels;
-        std::string data_type;
+        unsigned int num_rows=0, num_cols=0, num_channels=0;
+        std::string data_type="None";
     };
 
     /**
@@ -73,4 +73,5 @@ namespace helperfunc {
 
 
 } // End of helperfunc namespace
+
 #endif
