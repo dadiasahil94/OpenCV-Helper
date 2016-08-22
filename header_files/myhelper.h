@@ -16,7 +16,6 @@
 */
 namespace helperfunc {
 
-
     /**
     @brief Get data-type of OpenCV matrix object
 
@@ -70,6 +69,15 @@ namespace helperfunc {
     @see ImageHeaderStruct
     */
     ImageHeaderStruct GetImageHeader(const cv::Mat input_image);
+
+    /**
+    @brief Print the details of imageheader
+
+    @param[in]  Imageheader struct object
+
+    @see ImageHeaderStruct
+    */
+    void PrintImageHeader(const ImageHeaderStruct img_headstruct);
 
 
 } // End of helperfunc namespace
