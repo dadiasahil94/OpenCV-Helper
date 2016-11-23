@@ -3,12 +3,13 @@
 // Regular include files
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include<dirent.h> // For listing files in a direcory
 
 
 namespace helperfunc {
 
 
-    std::string TypeToStr(int matrix_type) {
+    std::string ImgTypeToStr(int matrix_type) {
         // Function to convert matrix type to string for better debugging
         std::string r;
 
@@ -48,14 +49,13 @@ namespace helperfunc {
         return r;
     }
 
-
     ImageHeaderStruct GetImageHeader(const cv::Mat input_image) {
         // Function to find matrix headers
         ImageHeaderStruct image_data;
         image_data.num_rows = (unsigned int)input_image.rows;
         image_data.num_cols = (unsigned int)input_image.cols;
         image_data.num_channels = (unsigned int)input_image.channels();
-        image_data.data_type = TypeToStr(input_image.type());
+        image_data.data_type = ImgTypeToStr(input_image.type());
 
         return image_data;
     }
@@ -65,6 +65,48 @@ namespace helperfunc {
         std::cout << "Number of cols : " << img_headstruct.num_cols  << std::endl;
         std::cout << "Number of channels : " << img_headstruct.num_channels  << std::endl;
         std::cout << "Data type : " << img_headstruct.data_type  << std::endl;
+    }
+
+    // template <class T>
+    // std::string type_name(){
+    //     // Used to find the type of any variable
+    //
+    //     typedef typename std::remove_reference<T>::type TR;
+    //     std::unique_ptr<char, void(*)(void*)> own
+    //            (
+    //     #ifndef _MSC_VER
+    //                     abi::__cxa_demangle(typeid(TR).name(), nullptr,
+    //                                                nullptr, nullptr),
+    //     #else
+    //                     nullptr,
+    //     #endif
+    //                     std::free
+    //            );
+    //     std::string r = own != nullptr ? own.get() : typeid(TR).name();
+    //     if (std::is_const<TR>::value)
+    //         r += " const";
+    //     if (std::is_volatile<TR>::value)
+    //         r += " volatile";
+    //     if (std::is_lvalue_reference<T>::value)
+    //         r += "&";
+    //     else if (std::is_rvalue_reference<T>::value)
+    //         r += "&&";
+    //     return r;
+    // }
+
+    void ListFilesInDir(const char dir_name[], std::vector<std::string> &file_lists){
+        // Returns a vector containing files of a particular directory
+        DIR *pDIR;
+        struct dirent *entry;
+        if( pDIR=opendir(dir_name) ){
+            while(entry = readdir(pDIR)){
+                // Add file to directory if its not . or ..
+                if( strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0 ){
+                    file_lists.push_back(std::string(entry->d_name));
+                }
+            }
+            closedir(pDIR);
+        }
     }
 
 

@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp> // Required for paramters of functions
+#include <dirent.h>
 
 
 /**
@@ -25,7 +26,7 @@ namespace helperfunc {
 
     @details Useage :
     @code
-    helperfunc::TypeToStr(image_matrix.type()) >> input is an integer
+    helperfunc::ImgTypeToStr(image_matrix.type()) >> input is an integer
             "8UC1" >> Output
     @endcode
 
@@ -33,7 +34,7 @@ namespace helperfunc {
 
     @return String of the type
     */
-    std::string TypeToStr(int matrix_type);
+    std::string ImgTypeToStr(int matrix_type);
 
     /**
     @struct ImageHeaderStruct
@@ -79,6 +80,28 @@ namespace helperfunc {
     */
     void PrintImageHeader(const ImageHeaderStruct img_headstruct);
 
+    /**
+    @brief Returns a vector containing files of a particular directory
+
+    @param[in]  dir_name (type = char[]) Directory to search
+    @param[out] file_lists (type = std::vector<std::string>)  List containing all file names
+
+    @return -
+    */
+    void ListFilesInDir(const char dir_name[], std::vector<std::string> &file_lists);
+
+    /**
+    @brief Prints the elements of vector
+
+    @param[in]  vec (type = std::vector<any_type>) Vector for iterations
+    */
+    template <class t>
+    void PrintVectorElements(const std::vector<t> vec){
+        // Note : `auto` keyword is of c++11 standard. So compile your program using c++11
+        for( auto i = vec.begin(); i != vec.end(); i++ ){
+            std::cout << *i << std::endl;
+        }
+    }
 
 } // End of helperfunc namespace
 
